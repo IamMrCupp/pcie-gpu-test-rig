@@ -8,12 +8,13 @@ jobs:
   erc:
     runs-on: ubuntu-latest
     # The image runs as a non-root `kicad` user, which can't write the runner's temp files —
-    # actions/checkout fails with EACCES before kicad-cli ever runs.
+    # actions/checkout fails with EACCES before kicad-cli ever runs. The -full image carries
+    # the stock symbol libraries; without them ERC flags every symbol as lib_symbol_issues.
     container:
-      image: kicad/kicad:10.0.6
+      image: kicad/kicad:10.0.6-full
       options: --user root
     env:
-      HOME: /root
+      HOME: /home/kicad   # the image user's config holds the global symbol-library table
     steps:
       - uses: actions/checkout@v5
       - name: Electrical rules check, every severity
