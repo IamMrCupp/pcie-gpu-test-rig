@@ -7,7 +7,13 @@ on:
 jobs:
   erc:
     runs-on: ubuntu-latest
-    container: kicad/kicad:10.0.6
+    # The image runs as a non-root `kicad` user, which can't write the runner's temp files —
+    # actions/checkout fails with EACCES before kicad-cli ever runs.
+    container:
+      image: kicad/kicad:10.0.6
+      options: --user root
+    env:
+      HOME: /root
     steps:
       - uses: actions/checkout@v5
       - name: Electrical rules check, every severity
