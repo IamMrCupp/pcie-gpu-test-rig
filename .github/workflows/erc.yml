@@ -1,0 +1,23 @@
+name: erc
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  erc:
+    runs-on: ubuntu-latest
+    container: kicad/kicad:10.0.6
+    steps:
+      - uses: actions/checkout@v5
+      - name: Electrical rules check, every severity
+        run: kicad-cli sch erc --severity-all --exit-code-violations -o erc.rpt wiring/pcie_rig_power.kicad_sch
+      - name: Show the report
+        if: always()
+        run: cat erc.rpt
+      - name: Renders are current
+        run: |
+          kicad-cli sch export pdf -o /tmp/check.pdf wiring/pcie_rig_power.kicad_sch
+          kicad-cli sch export svg -o /tmp/ wiring/pcie_rig_power.kicad_sch
+          # The PDF embeds a timestamp, so compare the SVG only.
+          cmp /tmp/pcie_rig_power.svg wiring/pcie_rig_power.svg || { echo "::error::wiring/pcie_rig_power.svg is stale — re-export with kicad-cli sch export svg"; exit 1; }
