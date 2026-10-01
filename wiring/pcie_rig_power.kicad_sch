@@ -1254,7 +1254,7 @@
 		(uuid "6b2f0c1e-2000-4000-8000-000000000070")
 	)
 	(text
-		"J2a/b"
+		"J2 J7"
 		(exclude_from_sim no)
 		(at 20.32 127.0 0)
 		(effects (font (size 1.4 1.4)) (justify left bottom))
@@ -1282,7 +1282,7 @@
 		(uuid "6b2f0c1e-2000-4000-8000-000000000074")
 	)
 	(text
-		"WAGO 221-413 three-port: J1 +, J2a, one wire to F1"
+		"WAGO 221-413 three-port: J1 +, J2, one wire to F1"
 		(exclude_from_sim no)
 		(at 33.019999999999996 130.81 0)
 		(effects (font (size 1.4 1.4)) (justify left bottom))
@@ -1303,7 +1303,7 @@
 		(uuid "6b2f0c1e-2000-4000-8000-000000000077")
 	)
 	(text
-		"WAGO 221-413 three-port: J1 -, J2b, one wire to M1 terminal 2"
+		"WAGO 221-413 three-port: J1 -, J7, one wire to M1 terminal 2"
 		(exclude_from_sim no)
 		(at 33.019999999999996 134.62 0)
 		(effects (font (size 1.4 1.4)) (justify left bottom))
@@ -1485,7 +1485,7 @@
 		(uuid "6b2f0c1e-2000-4000-8000-000000000103")
 	)
 	(text
-		"J5a/b"
+		"J5 J8"
 		(exclude_from_sim no)
 		(at 20.32 168.91 0)
 		(effects (font (size 1.4 1.4)) (justify left bottom))
@@ -1590,14 +1590,14 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6b2f0c1e-2000-4000-8000-000000000118")
-		(property "Reference" "J2a" (at 22.4 75.74 0) (effects (font (size 1.27 1.27))))
+		(property "Reference" "J2" (at 22.4 75.74 0) (effects (font (size 1.27 1.27))))
 		(property "Value" "post +" (at 21.4 82.74 0) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "" (at 25.4 78.74 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Datasheet" "" (at 25.4 78.74 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "" (at 25.4 78.74 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(pin "1" (uuid "6b2f0c1e-2000-4000-8000-000000000119"))
 		(instances
-			(project "pcie_rig_power" (path "/6b2f0c1e-1000-4000-8000-000000000000" (reference "J2a") (unit 1)))
+			(project "pcie_rig_power" (path "/6b2f0c1e-1000-4000-8000-000000000000" (reference "J2") (unit 1)))
 		)
 	)
 	(symbol
@@ -1609,14 +1609,14 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6b2f0c1e-2000-4000-8000-000000000120")
-		(property "Reference" "J2b" (at 22.4 31.56 0) (effects (font (size 1.27 1.27))))
+		(property "Reference" "J7" (at 22.4 31.56 0) (effects (font (size 1.27 1.27))))
 		(property "Value" "post -" (at 21.4 39.56 0) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "" (at 25.4 35.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Datasheet" "" (at 25.4 35.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "" (at 25.4 35.56 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(pin "1" (uuid "6b2f0c1e-2000-4000-8000-000000000121"))
 		(instances
-			(project "pcie_rig_power" (path "/6b2f0c1e-1000-4000-8000-000000000000" (reference "J2b") (unit 1)))
+			(project "pcie_rig_power" (path "/6b2f0c1e-1000-4000-8000-000000000000" (reference "J7") (unit 1)))
 		)
 	)
 	(symbol
@@ -1838,14 +1838,14 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6b2f0c1e-2000-4000-8000-000000000162")
-		(property "Reference" "J5a" (at 212.82 73.2 0) (effects (font (size 1.27 1.27))))
+		(property "Reference" "J5" (at 212.82 73.2 0) (effects (font (size 1.27 1.27))))
 		(property "Value" "post +" (at 218.82 77.2 0) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "" (at 210.82 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Datasheet" "" (at 210.82 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "" (at 210.82 76.2 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(pin "1" (uuid "6b2f0c1e-2000-4000-8000-000000000163"))
 		(instances
-			(project "pcie_rig_power" (path "/6b2f0c1e-1000-4000-8000-000000000000" (reference "J5a") (unit 1)))
+			(project "pcie_rig_power" (path "/6b2f0c1e-1000-4000-8000-000000000000" (reference "J5") (unit 1)))
 		)
 	)
 	(symbol
@@ -1857,14 +1857,14 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "6b2f0c1e-2000-4000-8000-000000000164")
-		(property "Reference" "J5b" (at 212.82 80.82 0) (effects (font (size 1.27 1.27))))
+		(property "Reference" "J8" (at 212.82 80.82 0) (effects (font (size 1.27 1.27))))
 		(property "Value" "post -" (at 218.82 84.82 0) (effects (font (size 1.27 1.27))))
 		(property "Footprint" "" (at 210.82 83.82 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Datasheet" "" (at 210.82 83.82 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(property "Description" "" (at 210.82 83.82 0) (effects (font (size 1.27 1.27)) (hide yes)))
 		(pin "1" (uuid "6b2f0c1e-2000-4000-8000-000000000165"))
 		(instances
-			(project "pcie_rig_power" (path "/6b2f0c1e-1000-4000-8000-000000000000" (reference "J5b") (unit 1)))
+			(project "pcie_rig_power" (path "/6b2f0c1e-1000-4000-8000-000000000000" (reference "J8") (unit 1)))
 		)
 	)
 	(symbol

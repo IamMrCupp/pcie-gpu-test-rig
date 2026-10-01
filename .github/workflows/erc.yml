@@ -21,3 +21,7 @@ jobs:
           kicad-cli sch export svg -o /tmp/ wiring/pcie_rig_power.kicad_sch
           # The PDF embeds a timestamp, so compare the SVG only.
           cmp /tmp/pcie_rig_power.svg wiring/pcie_rig_power.svg || { echo "::error::wiring/pcie_rig_power.svg is stale — re-export with kicad-cli sch export svg"; exit 1; }
+      - name: BOM is current
+        run: |
+          kicad-cli sch export bom -o /tmp/bom.csv --fields 'Reference,Value,${QUANTITY}' --labels 'Ref,Part,Qty' --group-by Value --sort-field Reference --exclude-dnp wiring/pcie_rig_power.kicad_sch
+          cmp /tmp/bom.csv wiring/pcie_rig_power_bom.csv || { echo "::error::wiring/pcie_rig_power_bom.csv is stale — re-export with kicad-cli sch export bom (same flags as this step)"; exit 1; }
