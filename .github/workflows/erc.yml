@@ -7,7 +7,14 @@ on:
 jobs:
   erc:
     runs-on: ubuntu-latest
-    container: kicad/kicad:10.0.6
+    # The image runs as a non-root `kicad` user, which can't write the runner's temp files —
+    # actions/checkout fails with EACCES before kicad-cli ever runs. The -full image carries
+    # the stock symbol libraries; without them ERC flags every symbol as lib_symbol_issues.
+    container:
+      image: kicad/kicad:10.0.6-full
+      options: --user root
+    env:
+      HOME: /home/kicad   # the image user's config holds the global symbol-library table
     steps:
       - uses: actions/checkout@v5
       - name: Electrical rules check, every severity
@@ -15,13 +22,20 @@ jobs:
       - name: Show the report
         if: always()
         run: cat erc.rpt
-      - name: Renders are current
+      # Renders aren't byte-compared: macOS and this Linux image export different bytes from the
+      # same schematic. CI's own renders ride along as an artifact instead.
+      - name: Export renders
         run: |
-          kicad-cli sch export pdf -o /tmp/check.pdf wiring/pcie_rig_power.kicad_sch
-          kicad-cli sch export svg -o /tmp/ wiring/pcie_rig_power.kicad_sch
-          # The PDF embeds a timestamp, so compare the SVG only.
-          cmp /tmp/pcie_rig_power.svg wiring/pcie_rig_power.svg || { echo "::error::wiring/pcie_rig_power.svg is stale — re-export with kicad-cli sch export svg"; exit 1; }
+          mkdir -p renders
+          kicad-cli sch export pdf -o renders/pcie_rig_power.pdf wiring/pcie_rig_power.kicad_sch
+          kicad-cli sch export svg -o renders/ wiring/pcie_rig_power.kicad_sch
       - name: BOM is current
+        # The CSV is plain text from the schematic's fields, so unlike the renders it IS
+        # byte-stable across platforms. Same flags as the committed file was made with.
         run: |
           kicad-cli sch export bom -o /tmp/bom.csv --fields 'Reference,Value,${QUANTITY}' --labels 'Ref,Part,Qty' --group-by Value --sort-field Reference --exclude-dnp wiring/pcie_rig_power.kicad_sch
-          cmp /tmp/bom.csv wiring/pcie_rig_power_bom.csv || { echo "::error::wiring/pcie_rig_power_bom.csv is stale — re-export with kicad-cli sch export bom (same flags as this step)"; exit 1; }
+          cmp /tmp/bom.csv wiring/pcie_rig_power_bom.csv || { echo "::error::wiring/pcie_rig_power_bom.csv is stale - re-export with kicad-cli sch export bom (flags as in this step)"; exit 1; }
+      - uses: actions/upload-artifact@v4
+        with:
+          name: schematic-renders
+          path: renders/
