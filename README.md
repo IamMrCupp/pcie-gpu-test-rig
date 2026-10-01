@@ -2,21 +2,23 @@
 
 A bench rig for powering a graphics card with no motherboard — a PCIe riser and the card's aux connectors, fed from a current-limited bench supply through a fused, switched, metered 12 V box. Put a dead card on it and in thirty seconds you know whether it draws nothing, idles like a healthy card, or drags the supply into current limit.
 
-![Wiring schematic, rev C](wiring/pcie_rig_power.svg)
+![Wiring schematic, rev D](wiring/pcie_rig_power.svg)
 
 ## What's here
 
 | Path | What |
 |---|---|
 | [`wiring/pcie_rig_power.kicad_sch`](wiring/pcie_rig_power.kicad_sch) | The schematic. KiCad 10, ERC clean with every severity on — CI re-checks it on every push. |
-| [`wiring/pcie_rig_power.pdf`](wiring/pcie_rig_power.pdf) · [`.svg`](wiring/pcie_rig_power.svg) | Renders, regenerated from the schematic with `kicad-cli`. |
-| [`WIRING.md`](WIRING.md) | The build: parts with sources, wire-by-wire list keyed to the schematic's nets, lead builds, build order, pre-power checks, limits. |
+| [`wiring/pcie_rig_power.pdf`](wiring/pcie_rig_power.pdf) · [`.svg`](wiring/pcie_rig_power.svg) · [`_bom.csv`](wiring/pcie_rig_power_bom.csv) | Renders and the parts list, all regenerated from the schematic with `kicad-cli`. CI fails if any is stale. |
+| [`BOM.md`](BOM.md) | Everything you buy or print, with quantities, dimensions and sources. |
+| [`BUILD.md`](BUILD.md) | The procedure: print, fit the panel parts, wire, close, make the leads, the continuity table, first power-up. |
+| [`WIRING.md`](WIRING.md) | The electrical reference: wire-by-wire list keyed to the schematic's nets, why the two traps are traps, the lead recipes, limits. |
 
 The printed enclosure — a 4×4 Clickfinity-footed box with the meter, switch, and probe post on the deck and the riser docked on top — lives in [3d-printer-models](https://github.com/IamMrCupp/3d-printer-models) as `pcie-rig-enclosure` ([in review](https://github.com/IamMrCupp/3d-printer-models/pull/165)), so it keeps the shared Gridfinity library and that repo's render checks. The wiring doesn't depend on it.
 
 ## How it works
 
-**12 V IN → 8 A fuse → PZEM-031 meter → rocker → outputs.** Keyed XT60 for the riser and the card, banana pairs beside them for probing and plain-lead supplies, and a probe-ground post for the scope. The meter sits ahead of the switch, so you see 12.0 V on the box before you ever enable the card.
+**12 V IN → 8 A fuse → PZEM-031 meter → rocker → outputs.** Keyed XT60 for the riser and the card, banana pairs beside them for probing and plain-lead supplies, and a probe-ground post for the scope. The meter sits ahead of the switch, so you see 12.0 V on the box before you ever enable the card. Every join inside is a WAGO lever nut — no solder, no terminal with two wires on it.
 
 **The protection is the bench supply, not the box.** Set it to 12.0 V, OVP 12.6 V, and a 6 A current limit — the rig's working ceiling. The fuse is a backstop. Everything else in the path is overrated on purpose.
 

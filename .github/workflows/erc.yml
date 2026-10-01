@@ -29,6 +29,12 @@ jobs:
           mkdir -p renders
           kicad-cli sch export pdf -o renders/pcie_rig_power.pdf wiring/pcie_rig_power.kicad_sch
           kicad-cli sch export svg -o renders/ wiring/pcie_rig_power.kicad_sch
+      - name: BOM is current
+        # The CSV is plain text from the schematic's fields, so unlike the renders it IS
+        # byte-stable across platforms. Same flags as the committed file was made with.
+        run: |
+          kicad-cli sch export bom -o /tmp/bom.csv --fields 'Reference,Value,${QUANTITY}' --labels 'Ref,Part,Qty' --group-by Value --sort-field Reference --exclude-dnp wiring/pcie_rig_power.kicad_sch
+          cmp /tmp/bom.csv wiring/pcie_rig_power_bom.csv || { echo "::error::wiring/pcie_rig_power_bom.csv is stale - re-export with kicad-cli sch export bom (flags as in this step)"; exit 1; }
       - uses: actions/upload-artifact@v4
         with:
           name: schematic-renders
