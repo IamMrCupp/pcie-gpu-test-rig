@@ -1,6 +1,6 @@
 # PCIe test rig — wiring guide
 
-The power box for a bench PCIe GPU test rig: a fused, switched, metered 12 V feed with keyed XT60 outputs for the riser and the card, banana pairs on both ends for probing and for a bench supply with plain leads, and a ground post for your scope or DMM. This guide is the build order and the wire-by-wire list. The schematic it follows is [`wiring/pcie_rig_power.kicad_sch`](wiring/pcie_rig_power.kicad_sch) — open it in KiCad, or read the [PDF](wiring/pcie_rig_power.pdf) / [SVG](wiring/pcie_rig_power.svg). Rev C.
+The power box for a bench PCIe GPU test rig: a fused, switched, metered 12 V feed with keyed XT60 outputs for the riser and the card, banana pairs on both ends for probing and for a bench supply with plain leads, and a ground post for your scope or DMM. This guide is the build order and the wire-by-wire list. The schematic it follows is [`wiring/pcie_rig_power.kicad_sch`](wiring/pcie_rig_power.kicad_sch) — open it in KiCad, or read the [PDF](wiring/pcie_rig_power.pdf) / [SVG](wiring/pcie_rig_power.svg). Rev D.
 
 Panel positions, the "cup", and the riser dock refer to the printed enclosure, which lives in the models repo as `pcie-rig-enclosure` ([in review](https://github.com/IamMrCupp/3d-printer-models/pull/165)). The wiring doesn't depend on it — any box that takes a 20 mm rocker, a 5×20 panel fuse holder, 4 mm posts, XT60E panel connectors, and the PZEM-031's 84 × 44 mm cutout will do.
 
@@ -17,7 +17,10 @@ Panel positions, the "cup", and the riser dock refer to the printed enclosure, w
 | **F1** | 5×20 mm panel-mount fuse holder, screw cap + **8 A** fast-blow glass fuse | rear wall | Gebildet kit (owned), [B07VT4VRW7](https://www.amazon.com/dp/B07VT4VRW7) |
 | **M1** | Peacefair **PZEM-031** — DC 8–100 V / 0–20 A, LCD, built-in shunt | top deck | sold as HiLetgo, [B079JVGRSL](https://www.amazon.com/dp/B079JVGRSL) |
 | **SW1** | Ampper 20 mm round rocker, 12 V 20 A, 3-pin, illuminated dot | top deck | [B0BZPY5D9L](https://www.amazon.com/dp/B0BZPY5D9L) |
-| **W1** | **WAGO 221-415** five-port lever nut — the ground bus | inside | from the 221 assortment |
+| **W1** | **WAGO 221-415** five-port lever nut — the ground bus | inside, on the base floor | from the 221 assortment |
+| **W2** | **WAGO 221-415** five-port — the switched + bus: switch in, RISER +, CARD +, OUT + post out, one spare | inside | same |
+| **W3** | **WAGO 221-413** three-port — joins the XT60 + and the red post into one wire for the fuse | inside | same |
+| **W4** | **WAGO 221-413** three-port — joins the XT60 − and the black post into one wire for the meter | inside | same |
 | **J3** | **XT60E-F** panel-mount, female — OUT, **RISER** | right wall | ordered ×2 |
 | **J4** | XT60E-F — OUT, **CARD**. Optional second output, wired in parallel with J3 | right wall | same |
 | **J5a, J5b** | 4 mm binding posts, red + black — OUT +/− | right wall | same pack as J2 |
@@ -33,7 +36,7 @@ Panel positions, the "cup", and the riser dock refer to the printed enclosure, w
 | **Top deck** | M1, SW1, J6, and the riser dock |
 | **Rear** | J1, J2a, J2b, F1 — swap a fuse without opening the box |
 | **Right** | J3, J4, J5a, J5b |
-| **Inside** | W1 on the base floor |
+| **Inside** | W1 on the base floor; W2, W3, W4 on their wires |
 
 The top is fixed — service is four screws on the sides and the cup lifts off its base with all its wiring intact. Nothing that carries current is on a part you remove to get at something else.
 
@@ -43,25 +46,32 @@ The top is fixed — service is four screws on the sides and the cup lifts off i
 
 ## Wire by wire
 
-Net names match the schematic. All 14 AWG unless noted.
+Net names match the schematic. All 14 AWG unless noted. Every join is a WAGO 221: nothing in the box is soldered, and no terminal ever takes two wires.
 
 | # | From | To | Net | Notes |
 |---|---|---|---|---|
-| 1 | J1 **+** | F1, either end | `12V_IN` | J2a (red post) ties to the same point — parallel input |
-| 2 | F1, other end | M1 terminal **3** — DC IN + | `12V_IN_FUSED` | |
-| 3 | J1 **−** | M1 terminal **2** — DC IN − | `GND_IN` | J2b (black post) ties here too. **Not to the WAGO** — see below |
-| 4 | M1 terminal **4** — LOAD + | SW1 **A** (power) | `12V_METERED` | |
-| 5 | SW1 **B** (load) | J3 +, J4 +, J5a | `+12V_OUT` | three wires off the B tab, or B → J5a and daisy from there |
-| 6 | M1 terminal **1** — LOAD − | W1 port **5** | `GND_OUT` | the ground bus starts here |
-| 7 | W1 port **4** | J3 − | `GND_OUT` | RISER |
-| 8 | W1 port **3** | J4 − | `GND_OUT` | CARD |
-| 9 | W1 port **2** | J5b (black post) | `GND_OUT` | |
-| 10 | W1 port **1** | J6 (probe post) | `GND_OUT` | |
-| 11 | SW1 **yellow** (LED −) | J5b's terminal | `GND_OUT` | 18 AWG is fine; it shares the OUT − post's ring terminal |
+| 1 | J1 **+** pigtail | W3 | `12V_IN` | 12 AWG as supplied |
+| 2 | J2a (red post) | W3 | `12V_IN` | |
+| 3 | W3 | F1, either end | `12V_IN` | the one wire into the fuse |
+| 4 | F1, other end | M1 terminal **3** — DC IN + | `12V_IN_FUSED` | ferrule |
+| 5 | J1 **−** pigtail | W4 | `GND_IN` | |
+| 6 | J2b (black post) | W4 | `GND_IN` | |
+| 7 | W4 | M1 terminal **2** — DC IN − | `GND_IN` | **Not W1** — see below |
+| 8 | M1 terminal **4** — LOAD + | SW1 **A** (power) | `12V_METERED` | spade |
+| 9 | SW1 **B** (load) | W2 | `+12V_OUT` | spade on the tab, lever nut on the other end |
+| 10 | W2 | J3 **+** pigtail | `+12V_OUT` | RISER |
+| 11 | W2 | J4 **+** pigtail | `+12V_OUT` | CARD |
+| 12 | W2 | J5a (red post) | `+12V_OUT` | the fifth port stays spare |
+| 13 | M1 terminal **1** — LOAD − | W1 | `GND_OUT` | the ground bus starts here |
+| 14 | W1 | J3 **−** pigtail | `GND_OUT` | RISER |
+| 15 | W1 | J4 **−** pigtail | `GND_OUT` | CARD |
+| 16 | W1 | J5b (black post) | `GND_OUT` | |
+| 17 | W1 | J6 (probe post) | `GND_OUT` | |
+| 18 | SW1 **yellow** (LED −) | J5b's terminal | `GND_OUT` | 18 AWG is fine; it shares the OUT − post's ring terminal |
 
 **PZEM-031 terminals**, top to bottom as printed on its back: **1 LOAD −, 2 DC IN −, 3 DC IN +, 4 LOAD +.** The + side passes straight through 3 → 4; the shunt sits between 2 and 1.
 
-**Why the input negative does not go on the WAGO.** The meter measures current as the drop across its internal shunt, which is in the negative leg between terminals 2 and 1. Land the input negative on the bus and the current bypasses the shunt: the meter reads 0.00 A forever and the rig looks dead when it isn't. Input − goes to terminal 2, the bus hangs off terminal 1, and the probe post — J6 — is on that bus, so a scope reference sees exactly what the card sees.
+**Why the input negative gets its own lever nut and never touches W1.** The meter measures current as the drop across its internal shunt, which is in the negative leg between terminals 2 and 1. Land the input negative on the ground bus and the current bypasses the shunt: the meter reads 0.00 A forever and the rig looks dead when it isn't. Input − goes through W4 to terminal 2, the bus hangs off terminal 1, and the probe post — J6 — is on that bus, so a scope reference sees exactly what the card sees.
 
 **Why the rocker's B and yellow must never swap.** A = supply, B = load, yellow = LED return to ground. Put the load wire on yellow and ground on B and the first flick of the switch is a dead short across the meter. Beep the three pins in continuity mode before you crimp: A–B closes when the rocker is on, yellow never closes to either.
 
@@ -79,10 +89,10 @@ Beep every lead end-to-end before it touches a card: + to every yellow pin, − 
 
 1. **Dry-fit every panel part** in the printed cup before wiring anything — meter, rocker, XT60s, five posts. If something doesn't fit, fix the print, not the part.
 2. **Mount the panel parts.** Posts get their nuts and a ring terminal each. XT60E panels screw to their ears.
-3. **Input side** (rows 1–3): J1 + and J2a → F1 → M1.3. J1 − and J2b → M1.2. Ferrules into the meter.
-4. **Meter to switch** (row 4): M1.4 → spade → SW1 A.
-5. **Outputs** (row 5): SW1 B → J3 +, J4 +, J5a.
-6. **Ground bus** (rows 6–11): M1.1 into W1 port 5, then one lever per consumer. LED yellow onto J5b's terminal.
+3. **Input side** (rows 1–7): XT60 + pigtail and J2a into W3, one wire W3 → F1 → M1.3. XT60 − pigtail and J2b into W4, one wire W4 → M1.2. Ferrules into the meter.
+4. **Meter to switch** (row 8): M1.4 → spade → SW1 A.
+5. **Outputs** (rows 9–12): SW1 B → W2, then one lever each to J3 +, J4 + and J5a.
+6. **Ground bus** (rows 13–18): M1.1 into W1, then one lever per consumer. LED yellow onto J5b's terminal.
 7. **Fuse in.** 8 A fast-blow, 5×20, through the cap on the rear panel.
 8. **Leave slack.** For service the four side screws come out and the cup lifts off the base. W1 stays on the base floor, so the wires to it need enough length to lift the cup clear without pulling on a lever.
 
@@ -90,7 +100,7 @@ Beep every lead end-to-end before it touches a card: + to every yellow pin, − 
 
 Do these with nothing plugged into J1 or J2.
 
-- **Continuity.** J1 + to M1.3 through the fuse. M1.4 to SW1 A. Rocker on: SW1 A to every output +. Rocker off: open. M1.1 to every output −, J5b and J6.
+- **Continuity.** J1 + and J2a to M1.3 through the fuse. J1 − and J2b to M1.2. M1.4 to SW1 A. Rocker on: SW1 A to every output +. Rocker off: open. M1.1 to every output −, J5b and J6.
 - **Polarity.** Every + is on the meter's LOAD + side of the switch and *only* there. Every − lands on M1.1's bus and nowhere else. J1 − and J2b go to M1.2, not to the bus.
 - **No shorts.** + bus to − bus reads open, rocker on and off. J1 + to J1 − reads open.
 - **The rocker's yellow** does not beep to A or B.
