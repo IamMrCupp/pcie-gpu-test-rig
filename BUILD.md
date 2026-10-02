@@ -6,10 +6,10 @@ Start to finish, in order. Parts and quantities are in [BOM.md](BOM.md); the wir
 
 From [`pcie-rig-enclosure`](https://github.com/IamMrCupp/3d-printer-models/tree/main/pcie-rig-enclosure). That README has the print order and the print settings; the short version:
 
-1. **Coupons first.** `deck_coupon`, `meter_fuse_coupon`, `xt60_coupon`, `joint_coupon`, `dock_rail_ladder` — about 70 g together. Push every panel part into its ladder, bolt an XT60 to each of its cutouts, drop the cup corner over the base corner and run an M3 in. Anything that doesn't fit changes a constant in `rig_common.scad` before the big parts print.
+1. **Coupons first.** `deck_coupon`, `meter_fuse_coupon`, `xt60_coupon`, `xt60_ear_ladder`, `joint_coupon` — about 80 g together. Push every panel part into its ladder, bolt an XT60 to each of its cutouts, drop the cup corner over the base corner and run an M3 in. Any hole-to-hole *pitch* you calipered gets a ladder too — the XT60 ears read 0.6 mm long. Anything that doesn't fit changes a constant in `rig_common.scad` before the big parts print.
 2. **Base**, feet down, no supports.
 3. **Cup**, as emitted (deck on the bed), no supports. Add `rig_cup_inlay` as a second colour if you want filled labels.
-4. **Two dock rails** at the peg size the ladder picked.
+4. **Storage bin**, floor down, no supports.
 
 ## 2. Fit the panel parts
 
@@ -21,7 +21,7 @@ Dry-fit everything in the bare cup before a single wire goes on. If something bi
 4. **Fuse holder** through the rear wall, nut inside. Fuse out for now.
 5. **XT60E-M** (J1): flange outside the rear wall, body through, M2.5 bolts from *inside* the box into the connector's captive nuts.
 6. **XT60E-F** (J3 RISER, J4 CARD): flange outside the right wall, M2.5 bolts from outside, nuts inside.
-7. **Dock rails** into their deck pockets with a drop of CA each. Check the riser board sits on them before the glue sets.
+7. **Storage bin** onto the back half of the deck with CA, its back edge flush with the deck's back edge. The two empty rectangular pockets under it are left over from an earlier riser dock; ignore them.
 
 ## 3. Wire it
 
@@ -72,7 +72,7 @@ Then the first power-up, in this order:
 
 ## 7. Use it
 
-Riser on the dock, card in the riser, dual lead from RISER to the riser's 6-pin and the card, or the quad lead to CARD for a 16-pin card. Supply on, meter reading 12 V, then the rocker. What the current tells you is in the [README](README.md).
+Riser board out of the bin, card in the riser, dual lead from RISER to the riser's 6-pin and the card, or the quad lead to CARD for a 16-pin card. Supply on, meter reading 12 V, then the rocker. What the current tells you is in the [README](README.md).
 
 ## 8. Service
 

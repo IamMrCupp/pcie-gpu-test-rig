@@ -38,11 +38,11 @@ Built by you, from stock cables. See *Leads* in [WIRING.md](WIRING.md).
 | Qty | Part | For | Source |
 |---|---|---|---|
 | 3 | **8-pin → 2× 8(6+2) PCIe splitter**, 18 AWG, 22 cm | one for the dual lead, two for the quad lead | Amangny 6-pack, [B094QSRK98](https://www.amazon.com/dp/B094QSRK98) |
-| 2 (+1) | **AMASS XT60H male**, with sheath housing | the box end of each lead | Amazon, 5 pairs |
+| 3 (+1) | **AMASS XT60H male**, with sheath housing | the box end of each lead: dual, quad, riser | Amazon, 5 pairs |
 | 1 | **AMASS XT60H female**, with sheath housing | the box end of the bench-supply lead | same pairs |
 | 1 short | **12 AWG XT60 pigtail** | the quad lead's splice point | |
 | 1 | **4×8-pin → 12VHPWR adapter** | cards with the 16-pin connector | [B0GYHKK5WS](https://www.amazon.com/dp/B0GYHKK5WS) |
-| 1 | **PCIe 1x→16x riser kit** (x16 board, x1 card, USB 3.0 lead, SATA → 6-pin) | docks on the deck | Kingwin, [B07QBF2X6C](https://www.amazon.com/dp/B07QBF2X6C) |
+| 1 | **PCIe 1x→16x riser kit** (x16 board, x1 card, USB 3.0 lead, SATA → 6-pin) | stores in the bin on the deck; its SATA → 6-pin cord becomes the riser lead | Kingwin, [B07QBF2X6C](https://www.amazon.com/dp/B07QBF2X6C) |
 
 ## The box
 
@@ -52,11 +52,11 @@ Printed from [`pcie-rig-enclosure`](https://github.com/IamMrCupp/3d-printer-mode
 |---|---|---|
 | 1 | `rig_base` | 142 cm³, feet down |
 | 1 | `rig_cup` | 139 cm³, emitted deck-down |
-| 2 | `rig_dock_rail` | pegs for the riser's mounting holes |
+| 1 | `rig_storage_bin` | three bays on the deck: x16 board on edge, x1 card, USB lead. 48 cm³ |
 | 1 | `rig_cup_inlay` | optional second colour for the labels |
-| 1 each | `deck_coupon`, `meter_fuse_coupon`, `xt60_coupon`, `joint_coupon`, `dock_rail_ladder` | print-first fit checks — see that README's print order |
+| 1 each | `deck_coupon`, `meter_fuse_coupon`, `xt60_coupon`, `xt60_ear_ladder`, `joint_coupon` | print-first fit checks — see that README's print order |
 | 4 | **M3 × 10** screws | cup to base, self-tapping into printed pilots |
-| — | CA glue | the two dock rails |
+| — | CA glue | the storage bin to the deck |
 
 ## Bench
 

@@ -2,7 +2,7 @@
 
 The power box for a bench PCIe GPU test rig: a fused, switched, metered 12 V feed with keyed XT60 outputs for the riser and the card, banana pairs on both ends for probing and for a bench supply with plain leads, and a ground post for your scope or DMM. This is the electrical reference: the wire-by-wire list and the reasons behind it. The procedure is [BUILD.md](BUILD.md), the shopping list is [BOM.md](BOM.md). The schematic it follows is [`wiring/pcie_rig_power.kicad_sch`](wiring/pcie_rig_power.kicad_sch) — open it in KiCad, or read the [PDF](wiring/pcie_rig_power.pdf) / [SVG](wiring/pcie_rig_power.svg). Rev D.
 
-Panel positions, the "cup", and the riser dock refer to the printed enclosure, which lives in the models repo as `pcie-rig-enclosure` ([in review](https://github.com/IamMrCupp/3d-printer-models/pull/165)). The wiring doesn't depend on it — any box that takes a 20 mm rocker, a 5×20 panel fuse holder, 4 mm posts, XT60E panel connectors, and the PZEM-031's 84 × 44 mm cutout will do.
+Panel positions, the "cup", and the storage bin refer to the printed enclosure, which lives in the models repo as `pcie-rig-enclosure` ([in review](https://github.com/IamMrCupp/3d-printer-models/pull/165)). The wiring doesn't depend on it — any box that takes a 20 mm rocker, a 5×20 panel fuse holder, 4 mm posts, XT60E panel connectors, and the PZEM-031's 84 × 44 mm cutout will do.
 
 ![Schematic](wiring/pcie_rig_power.svg)
 
@@ -31,7 +31,7 @@ What each designator on the sheet is. Quantities, sources and dimensions are in 
 
 | Face | Carries |
 |---|---|
-| **Top deck** | M1, SW1, J6, and the riser dock |
+| **Top deck** | M1, SW1, J6, and the storage bin |
 | **Rear** | J1, J2, J7, F1 — swap a fuse without opening the box |
 | **Right** | J3, J4, J5, J8 |
 | **Inside** | W1 on the base floor; W2, W3, W4 on their wires |
@@ -79,7 +79,7 @@ All from the six-pack of 6+2 dual-output PCIe cords. Cut the PSU-side 8-pin off 
 
 - **Dual lead.** One cord → XT60H → 2 × 8(6+2). Feeds the riser's 6-pin (leave the +2 tail off) and one card connector, or two card connectors.
 - **Quad lead.** Two cords → 4 × 8-pin, for the 4×8-pin → 12VHPWR adapter. Twelve 18 AWG wires won't go in one XT60 solder cup — splice them to a short **12 AWG XT60 pigtail** instead, heat-shrunk.
-- **Riser lead.** Only if the riser gets its own 12 V feed rather than sharing the dual lead.
+- **Riser lead.** The riser kit's own SATA → 6-pin cord. Cut the SATA plug off — it's the weak point on these adapters, about 4.5 A across its three 12 V pins — and solder a male XT60H to the cut end. Mine has 2 yellow and 4 black: twist and tin each group, yellows into +, all four blacks into − (one black is the 6-pin's sense line, tied to ground). Four 18 AWG blacks are about the size of the cup; if they won't seat, butt-splice them to a short 14 AWG tail first. Any red or orange wire is 5 V / 3.3 V from the SATA side: cut it back and insulate it. Sheath on the wire before you solder.
 
 Beep every lead end-to-end before it touches a card: + to every yellow pin, − to every black, nothing between.
 
