@@ -14,7 +14,7 @@ A bench rig for powering a graphics card with no motherboard — a PCIe riser an
 | [`BUILD.md`](BUILD.md) | The procedure: print, fit the panel parts, wire, close, make the leads, the continuity table, first power-up. |
 | [`WIRING.md`](WIRING.md) | The electrical reference: wire-by-wire list keyed to the schematic's nets, why the two traps are traps, the lead recipes, limits. |
 
-The printed enclosure — a 4×4 Clickfinity-footed box with the meter, switch, and probe post on the deck and the riser docked on top — lives in [3d-printer-models](https://github.com/IamMrCupp/3d-printer-models) as `pcie-rig-enclosure` ([in review](https://github.com/IamMrCupp/3d-printer-models/pull/165)), so it keeps the shared Gridfinity library and that repo's render checks. The wiring doesn't depend on it.
+The printed enclosure — a 4×4 Clickfinity-footed box with the meter, switch, and probe post on the deck and a storage bin on top for the riser kit — lives in [3d-printer-models](https://github.com/IamMrCupp/3d-printer-models) as `pcie-rig-enclosure` ([in review](https://github.com/IamMrCupp/3d-printer-models/pull/165)), so it keeps the shared Gridfinity library and that repo's render checks. The wiring doesn't depend on it.
 
 ## How it works
 
