@@ -13,6 +13,7 @@ A bench rig for powering a graphics card with no motherboard — a PCIe riser an
 | [`BOM.md`](BOM.md) | Everything you buy or print, with quantities, dimensions and sources. |
 | [`BUILD.md`](BUILD.md) | The procedure: print, fit the panel parts, wire, close, make the leads, the continuity table, first power-up. |
 | [`WIRING.md`](WIRING.md) | The electrical reference: wire-by-wire list keyed to the schematic's nets, why the two traps are traps, the lead recipes, limits. |
+| [`docs/gpu-bench-power-box-build-guide.pdf`](docs/gpu-bench-power-box-build-guide.pdf) | The original Revision 1 build guide: four switches, 3.3 V / 1.8 V buck rails, a variable output. Superseded by rev C. Kept for the history. Don't build from it. |
 
 The printed enclosure — a 4×4 Clickfinity-footed box with the meter, switch, and probe post on the deck and a storage bin on top for the riser kit — lives in [3d-printer-models](https://github.com/IamMrCupp/3d-printer-models) as `pcie-rig-enclosure` ([in review](https://github.com/IamMrCupp/3d-printer-models/pull/165)), so it keeps the shared Gridfinity library and that repo's render checks. The wiring doesn't depend on it.
 
